@@ -22,7 +22,12 @@ namespace Universite.Pages.Enseignants
 
         public async Task OnGetAsync()
         {
-            Enseignant = await _context.Enseignant.ToListAsync();
+            //Enseignant = await _context.Enseignant.ToListAsync();
+            Enseignant = await _context.Enseignant
+                            .Include(i => i.LesEnseigne)
+                                .ThenInclude(i => i.LUE)
+                            .AsNoTracking()
+                            .ToListAsync();
         }
     }
 }

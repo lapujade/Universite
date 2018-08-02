@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Instructors\**" />
+    <Content Remove="Pages\Instructors\**" />
+    <EmbeddedResource Remove="Pages\Instructors\**" />
+    <None Remove="Pages\Instructors\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework.CodeTemplates.CSharp" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />

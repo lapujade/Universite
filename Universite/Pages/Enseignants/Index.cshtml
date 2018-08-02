@@ -19,6 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Enseignant[0].Prenom)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enseignant[0].LesEnseigne)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +33,14 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @{
+                    foreach (var ue in item.LesEnseigne)
+                    {
+                        @ue.LUE.NomComplet <br />
+                    }
+                }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

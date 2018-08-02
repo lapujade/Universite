@@ -4,30 +4,30 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Universite.Pages.Instructors
+namespace Universite.Pages.Enseignants
 {
     public class EnseignePageModel : PageModel
     {
 
-        public List<AffectationUE> LesAffectationUE;
+        public List<CheckEnseigne> LesCheckEnseigne;
 
-        public void AddEnseigne(UniversiteContext context, 
+        public void LoadUECheckBoxData(UniversiteContext context, 
                                                Enseignant enseignant)
         {
             var lesUE = context.UE;
             var lesEnseigne = new HashSet<int>(enseignant.LesEnseigne.Select(c => c.UEID));
-            LesAffectationUE = new List<AffectationUE>();
+            LesCheckEnseigne = new List<CheckEnseigne>();
             foreach (var UE in lesUE)
             {
-                LesAffectationUE.Add(new AffectationUE
+                LesCheckEnseigne.Add(new CheckEnseigne
                 {
                     UEID = UE.ID,
                     NomComplet = UE.NomComplet,
-                    affecte = lesEnseigne.Contains(UE.ID)
+                    IsCheck = lesEnseigne.Contains(UE.ID)
                 });
             }
         }
-
+        /*
         public void UpdateEnseigne(UniversiteContext context, 
             string[] selectedUE, Enseignant enseignantAModifier)
         {
@@ -66,6 +66,6 @@ namespace Universite.Pages.Instructors
                     }
                 }
             }
-        }
+        }*/
     }
 }
