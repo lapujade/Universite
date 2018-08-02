@@ -1,0 +1,31 @@
+﻿@page
+@model Universite.Pages.Formations.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Formation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Formation.IntituleDiplome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Formation.IntituleDiplome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Formation.AnneeDiplome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Formation.AnneeDiplome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Formation.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

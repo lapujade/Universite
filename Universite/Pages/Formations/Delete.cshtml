@@ -1,0 +1,34 @@
+﻿@page
+@model Universite.Pages.Formations.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Formation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Formation.IntituleDiplome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Formation.IntituleDiplome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Formation.AnneeDiplome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Formation.AnneeDiplome)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Formation.ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
