@@ -10,7 +10,7 @@ using Universite.Models;
 
 namespace Universite.Pages.Enseignants
 {
-    public class EditModel : PageModel
+    public class EditModel : EnseignePageModel
     {
         private readonly Universite.Models.UniversiteContext _context;
 
@@ -29,40 +29,42 @@ namespace Universite.Pages.Enseignants
                 return NotFound();
             }
 
-            Enseignant = await _context.Enseignant.FirstOrDefaultAsync(m => m.ID == id);
+            //Enseignant = await _context.Enseignant.FirstOrDefaultAsync(m => m.ID == id);
+            Enseignant = await _context.Enseignant
+                                 .Include(i => i.LesEnseigne).ThenInclude(i => i.LUE)
+                                 .AsNoTracking()
+                                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Enseignant == null)
             {
                 return NotFound();
             }
+            LoadUECheckBoxData(_context, Enseignant);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedUE)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            var EnseignantAModifier = await _context.Enseignant
+                .Include(i => i.LesEnseigne)
+                    .ThenInclude(i => i.LUE)
+                .FirstOrDefaultAsync(s => s.ID == id);
 
-            _context.Attach(Enseignant).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Enseignant>(
+                EnseignantAModifier,
+                "Enseignant",
+                i => i.Prenom, i => i.Nom))
             {
+                UpdateEnseigne(_context, selectedUE, EnseignantAModifier);
                 await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EnseignantExists(Enseignant.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            UpdateEnseigne(_context, selectedUE, EnseignantAModifier);
+            LoadUECheckBoxData(_context, EnseignantAModifier);
             return RedirectToPage("./Index");
         }
 
