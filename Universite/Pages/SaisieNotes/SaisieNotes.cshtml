@@ -1,0 +1,80 @@
+﻿@page
+@model Universite.Pages.SaisieNotes.SaisieNotesModel
+@{
+    ViewData["Title"] = "SaisieNotes";
+}
+
+<h2>SaisieNotes</h2>
+
+<hr />
+<div class="alert-info">
+    <br />
+    <p>Etape 1<p/>
+    <p> Veuillez choisir l'UE pour la saisie des notes</p>
+    <p>Cliquez sur charger les notes</p>
+    <br />
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <select asp-for="UEID" class="form-control" asp-items="ViewBag.SelectUEData"></select>
+                @if (Model.ue != null)
+                {
+                    <input type="hidden" asp-for="ue.ID" name="UEIDUPDATE" />
+                }
+            </div>
+            <div class="form-group">
+                <button asp-page-handler="load">Charger les notes</button>
+            </div>
+            @if (Model.NotesDatas != null)
+            {
+                <div class="alert-info">
+                    <br />
+                    <p>Etape 1</p>
+                    <p> Veuillez saisir/modifier des notes de l'UE :  @Model.ue.NomComplet</p>
+                    <p>Pensez à enregistrer vos modifications avant de quitter la page</p>
+                    <br />
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NotesDatas[0].LEtudiant.NomComplet)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NotesDatas[0].NoteString)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.NotesDatas)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LEtudiant.NomComplet)
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="@item.NoteString" name="noteString" type="text" class="form-control" />
+                                        <input asp-for="@item.LEtudiant.ID" name="etudiantID" type="hidden" class="form-control" />
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <button asp-page-handler="update">Mettre à jour les notes</button>
+                </div>
+            }
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

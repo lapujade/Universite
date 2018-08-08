@@ -25,6 +25,27 @@
                 <span asp-validation-for="Enseignant.Prenom" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <div>
+                    <table>
+                        @{
+                            foreach (var CheckData in Model.LesCheckEnseigne)
+                            {
+
+                                @:<tr>
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedUE"
+                                               value="@CheckData.UEID"
+                                               @(Html.Raw(CheckData.IsCheck ? "checked=\"checked\"" : "")) />
+                                        @CheckData.NomComplet
+                                    @: </td>
+                                @: </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>

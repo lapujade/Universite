@@ -27,6 +27,7 @@ namespace Universite.Models
         public int FormationID { get; set; }
 
         // Données calculée non persistante
+        [Display(Name = "Nom étudiant")]
         public string NomComplet
         {
             get

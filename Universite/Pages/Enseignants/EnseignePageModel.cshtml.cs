@@ -27,7 +27,7 @@ namespace Universite.Pages.Enseignants
                 });
             }
         }
-        /*
+
         public void UpdateEnseigne(UniversiteContext context, 
             string[] selectedUE, Enseignant enseignantAModifier)
         {
@@ -66,6 +66,6 @@ namespace Universite.Pages.Enseignants
                     }
                 }
             }
-        }*/
+        }
     }
 }
